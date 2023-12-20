@@ -18,6 +18,9 @@
                     <x-nav-link :href="route('post')" :active="request()->routeIs('post')">
                         {{ __('게시판') }}
                     </x-nav-link>
+                    <x-nav-link :href="route('mypost')" :active="request()->routeIs('mypost')">
+                        {{ __('마이 페이지') }}
+                    </x-nav-link>
                 </div>
             </div>
 
@@ -75,6 +78,9 @@
             </x-responsive-nav-link>
             <x-responsive-nav-link :href="route('post')" :active="request()->routeIs('post')">
                 {{ __('게시판') }}
+            </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('mypost')" :active="request()->routeIs('mypost')">
+                {{ __('마이 페이지') }}
             </x-responsive-nav-link>
         </div>
 

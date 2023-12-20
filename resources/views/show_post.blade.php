@@ -30,6 +30,32 @@
                     </form>
                 </div>
             </div>
+            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+                <form action="{{ route('comments.store') }}" method="post">
+                    @csrf
+                    <input type="hidden" name="post_id" value="{{ $post->id }}">  
+                    <textarea name="content" class="w-80 h-20 mr-2" placeholder="댓글을 입력하세요."></textarea> <!-- 오른쪽 여백 추가 -->
+                    <button type="submit" class="mt-2 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">댓글 작성</button>
+                </form>
+            </div>
+            
+            <!-- 댓글 목록 -->
+            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+                @foreach($post->comments as $comment)
+                    <div class="border-b border-gray-200 pb-4 mb-4 flex justify-between items-center"> <!-- Flexbox를 적용 -->
+                        <div>
+                            <h3 class="font-bold">{{ $comment->user->name }}</h3>
+                            <p>{{ $comment->content }}</p>
+                        </div>
+                        <!-- 댓글 삭제 버튼 추가 -->
+                        <form action="{{ route('comment.destroy', ['id' => $comment->id]) }}" method="POST">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">댓글 삭제</button>
+                        </form>
+                    </div>
+                @endforeach
+            </div>
         </div>
     </div>
 </x-app-layout>

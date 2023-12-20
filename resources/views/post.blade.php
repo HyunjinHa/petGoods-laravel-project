@@ -28,7 +28,7 @@
                                     </a>
                                 </td>
                                 <td class="border px-2 py-2">{{ $post->user->name }}</td>
-                                <td class="border px-3 py-2">{{ $post->created_at->format('Y-m-d') }}</td>
+                                <td class="border px-3 py-2">{{ $post->created_at->format('Y-m-d H:i') }}</td>
                             </tr>
                         @endforeach
                     </tbody>

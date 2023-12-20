@@ -52,7 +52,7 @@ class ProductController extends Controller
         if($product !== null) {
             return view('show_product', ['product' => $product]);
         } else {
-            return redirect('/products')->with('error', '해당 상품을 찾을 수 없습니다.');
+            return redirect('/dashboard')->with('error', '해당 상품을 찾을 수 없습니다.');
         }
     }
 
@@ -62,7 +62,7 @@ class ProductController extends Controller
         if($product !== null && $product->user_id == Auth::id()) {
             return view('edit_product', ['product' => $product]);
         } else {
-            return redirect('/product')->with('error', '해당 게시글을 찾거나 수정할 권한이 없습니다.');
+            return redirect('/dashboard')->with('error', '해당 게시글을 찾거나 수정할 권한이 없습니다.');
         }
     }
 
@@ -85,15 +85,16 @@ class ProductController extends Controller
                 }
 
                 $product->title = $request->title;
+                $product->price = $request->price;
                 $product->content = $request->content;
                 $product->save();
 
-                return redirect('/product')->with('success', '게시글이 수정되었습니다.');
+                return redirect('/dashboard')->with('success', '게시글이 수정되었습니다.');
             } else {
-                return redirect('/product')->with('error', '해당 게시글을 찾을 수 없습니다.');
+                return redirect('/dashboard')->with('error', '해당 게시글을 찾을 수 없습니다.');
             }
         } else {
-            return redirect('/product')->with('error', '해당 게시글을 찾거나 수정할 권한이 없습니다.');
+            return redirect('/dashboard')->with('error', '해당 게시글을 찾거나 수정할 권한이 없습니다.');
         }
     }
 
@@ -104,12 +105,12 @@ class ProductController extends Controller
             $product = Product::find($id);
             if($product !== null) {
                 $product->delete();
-                return redirect('/product')->with('success', '게시글이 삭제되었습니다.');
+                return redirect('/dashboard')->with('success', '게시글이 삭제되었습니다.');
             } else {
-                return redirect('/product')->with('error', '해당 게시글을 찾을 수 없습니다.');
+                return redirect('/dashboard')->with('error', '해당 게시글을 찾을 수 없습니다.');
             }
         } else {
-            return redirect('/product')->with('error', '해당 게시글을 찾거나 삭제할 권한이 없습니다.');
+            return redirect('/dashboard')->with('error', '해당 게시글을 찾거나 삭제할 권한이 없습니다.');
         }
     }
 }
