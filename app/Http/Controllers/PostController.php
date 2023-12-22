@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use App\Models\Post;
+use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class PostController extends Controller
 {
@@ -97,15 +98,25 @@ class PostController extends Controller
 
     public function destroy($id)
     {
+        // $post = Post::find($id);
+        // if($post !== null && $post->user_id == Auth::id()) {
+        //     if($post !== null) {
+        //         $post->delete();
+        //         return redirect('/post')->with('success', '게시글이 삭제되었습니다.');
+        //     } else {
+        //         return redirect('/post')->with('error', '해당 게시글을 찾을 수 없습니다.');
+        //     }
+        // } else {
+        //     return redirect('/post')->with('error', '해당 게시글을 찾거나 삭제할 권한이 없습니다.');
+        // }
         $post = Post::find($id);
         if($post !== null && $post->user_id == Auth::id()) {
-            $post = Post::find($id);
-            if($post !== null) {
-                $post->delete();
-                return redirect('/post')->with('success', '게시글이 삭제되었습니다.');
-            } else {
-                return redirect('/post')->with('error', '해당 게시글을 찾을 수 없습니다.');
+            if(file_exists(public_path('images/'.$post->image))) {
+                unlink(public_path('images/'.$post->image));
             }
+            
+            $post->delete();
+            return redirect('/post')->with('success', '게시글이 삭제되었습니다.');
         } else {
             return redirect('/post')->with('error', '해당 게시글을 찾거나 삭제할 권한이 없습니다.');
         }
