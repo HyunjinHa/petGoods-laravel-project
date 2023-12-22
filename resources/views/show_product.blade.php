@@ -17,10 +17,10 @@
                     <p>{{ $product->content }}</p>
                 </div>
                 <div class="flex p-6" style="float: right">
-                    <button type="submit" class="mt-2 bg-blue-500 hover:bg-blue-700 text-black font-bold py-2 px-4 rounded">
-                        <a href="{{ route('products.edit', ['id' => $product->id]) }}" class="text-black">수정</a>
+                    <button type="submit" class="mt-2 mr-2 bg-blue-500 hover:bg-blue-700 text-black font-bold py-2 px-4 rounded">
+                        <a href="{{ route('products.edit', ['id' => $product->id]) }}" class="text-white">수정</a>
                     </button>
-                    <form action="{{ route('products.destroy', ['id' => $product->id]) }}" method="POST">
+                    <form action="{{ route('products.destroy', ['id' => $product->id]) }}" method="POST" onsubmit="return confirm('상품을 삭제하시겠습니까?')">
                         @csrf
                         @method('DELETE')
                         <button type="submit" class="mt-2 bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">게시글 삭제</button>

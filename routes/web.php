@@ -51,12 +51,13 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/create_post', [PostController::class, 'create'])->name('posts.create');
     Route::post('/create_post', [PostController::class, 'store'])->name('posts.store');
-    Route::get('/post/{id}', [PostController::class, 'show']);
+    Route::get('/post/{id}', [PostController::class, 'show'])->name('post.show');
     Route::delete('/post/{id}', [PostController::class, 'destroy'])->name('post.destroy');
     Route::get('/post/{id}/edit', [PostController::class, 'edit'])->name('post.edit');
     Route::put('/post/{id}', [PostController::class, 'update'])->name('post.update');
 
     Route::post('/comments', [CommentController::class, 'store'])->name('comments.store');
+    Route::delete('/comments/{id}', [CommentController::class, 'destroy'])->name('comments.destroy');
 
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');

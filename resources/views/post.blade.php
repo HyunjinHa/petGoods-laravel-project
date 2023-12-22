@@ -14,21 +14,21 @@
                 <table class="table-auto w-full">
                     <thead>
                         <tr>
-                            <th class="px-10 py-2">제목</th>
-                            <th class="px-2 py-2">작성자</th>
-                            <th class="px-3 py-2">작성일</th>
+                            <th class="px-20 py-2">제목</th>
+                            <th class="px-5 py-2">작성자</th>
+                            <th class="px-5 py-2">작성일</th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach ($posts as $post)
                             <tr>
-                                <td class="border px-10 py-2">
+                                <td class="border px-20 py-2">
                                     <a href="/post/{{ $post->id }}">
                                         {{ $post->title }}
                                     </a>
                                 </td>
-                                <td class="border px-2 py-2">{{ $post->user->name }}</td>
-                                <td class="border px-3 py-2">{{ $post->created_at->format('Y-m-d H:i') }}</td>
+                                <td class="border px-5 py-2">{{ $post->user->name }}</td>
+                                <td class="border px-5 py-2">{{ $post->created_at->format('Y-m-d H:i') }}</td>
                             </tr>
                         @endforeach
                     </tbody>
