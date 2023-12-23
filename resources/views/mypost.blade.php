@@ -69,8 +69,8 @@
                             <p class="text-red-500 font-semibold">{{ number_format($product->price, 0) }}원</p>
                         </a>
                     </div>
-                    @if ($product->request != '')
-                    <button type="button" class="mt-2 mr-2 bg-green-500 hover:bg-green-700 text-black py-2 px-4 rounded font-bold text-lg" onclick="confirmRestoreOrDestroy(event, 'restoreForm', 'destroyForm')">
+                    @if ($product->request)
+                    <button type="button" class="mr-10 ml-auto bg-green-500 hover:bg-green-700 text-black py-2 px-4 rounded font-bold text-lg" onclick="confirmRestoreOrDestroy(event, 'restoreForm', 'destroyForm')">
                         판매 수락
                     </button>
                     <form id="restoreForm" action="{{ route('product.restore', ['id' => $product->id]) }}" method="POST" style="display: none;">
@@ -85,15 +85,14 @@
                     function confirmRestoreOrDestroy(event, restoreFormId, destroyFormId) {
                         event.preventDefault();
                         if (confirm("상품을 재등록하시겠습니까?")) {
-                            // 확인 버튼을 눌렀을 때
+                            // 확인 버튼
                             document.getElementById(restoreFormId).submit();
                         } else {
-                            // 취소 버튼을 눌렀을 때
+                            // 취소 버튼
                             document.getElementById(destroyFormId).submit();
                         }
                     }
                     </script>
-
                     @endif
                 </div>
             @endforeach

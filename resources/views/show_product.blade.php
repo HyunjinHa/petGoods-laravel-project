@@ -28,13 +28,22 @@
                         <h2 class="font-bold text-lg mt-4">{{ $product->title }}</h2>
                         <p class="text-red-500 font-semibold mb-4">{{ number_format($product->price, 0) }}원</p>
                         <p>{{ $product->content }}</p>
-                        @if ($product->request)
+                        @if ($product->request == Auth::user()->id)
+                        <div class="flex justify-end">
+                            <form action="{{ route('products.requestCancel', ['id' => $product->id]) }}" method="POST">
+                                @csrf
+                                <button type="submit" class="mt-2 mr-2 bg-red-500 hover:bg-red-700 text-black font-bold py-3 px-6 rounded">구매 취소</button>
+                            </form>
+                        </div>
+                        @elseif ($product->request)
                         <h3 class="mt-2 mr-2 bg-blue-500 hover:bg-blue-700 text-black font-bold py-3 px-6 rounded">판매 완료된 상품입니다.</h3>
                         @else
-                        <form action="{{ route('products.request', ['id' => $product->id]) }}" method="POST">
-                            @csrf
-                            <button type="submit" class="mt-2 mr-2 bg-blue-500 hover:bg-blue-700 text-black font-bold py-3 px-6 rounded">구매 신청</button>
-                        </form>
+                        <div class="flex justify-end">
+                            <form action="{{ route('products.request', ['id' => $product->id]) }}" method="POST">
+                                @csrf
+                                <button type="submit" class="mt-2 mr-2 bg-blue-500 hover:bg-blue-700 text-black font-bold py-3 px-6 rounded">구매 신청</button>
+                            </form>
+                        </div>
                         @endif
                     </div>
                 </div>

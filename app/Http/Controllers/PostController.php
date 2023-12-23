@@ -12,7 +12,7 @@ class PostController extends Controller
 {
     public function index()
     {
-        $posts = Post::all();
+        $posts = Post::orderBy('created_at', 'desc')->get();
         return view('post', compact('posts'));
     }
 
@@ -114,7 +114,7 @@ class PostController extends Controller
             if(file_exists(public_path('images/'.$post->image))) {
                 unlink(public_path('images/'.$post->image));
             }
-            
+
             $post->delete();
             return redirect('/post')->with('success', '게시글이 삭제되었습니다.');
         } else {

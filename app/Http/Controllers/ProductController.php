@@ -11,8 +11,9 @@ class ProductController extends Controller
 {
     public function index()
     {
-        $products = Product::all();
-        return view('dashboard', compact('products'));
+        $user = Auth::user();
+        $products = Product::orderBy('created_at', 'desc')->get();
+        return view('dashboard', compact('products'), ['user' => $user]);
     }
 
     public function create()
@@ -129,6 +130,19 @@ class ProductController extends Controller
             $product->save();
 
             return redirect()->back()->with('success', '구매 신청이 완료되었습니다.');
+        } else {
+            return redirect()->back()->with('error', '상품을 찾을 수 없습니다.');
+        }
+    }
+
+    public function updateRequestCancel($id)
+    {
+        $product = Product::find($id);
+        if($product) {
+            $product->request = '';
+            $product->save();
+
+            return redirect()->back()->with('success', '구매가 취소되었습니다.');
         } else {
             return redirect()->back()->with('error', '상품을 찾을 수 없습니다.');
         }

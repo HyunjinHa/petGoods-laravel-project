@@ -11,8 +11,8 @@ class MypostController extends Controller
     public function index()
     {
         $user = Auth::user();
-        $posts = Post::where('user_id', $user->id)->get();
-        $products = Product::where('user_id', $user->id)->get();
+        $posts = Post::where('user_id', $user->id)->orderBy('created_at', 'desc')->get();
+        $products = Product::where('user_id', $user->id)->orderByRaw("CASE WHEN request = '' THEN 1 ELSE 0 END, created_at DESC")->get();
         // $myProducts = Product::where('request', $user->id)->get();
         // return view('mypost', ['posts' => $posts], ['products' => $products], ['myProducts' => $myProducts]);
         return view('mypost', ['posts' => $posts], ['products' => $products]);

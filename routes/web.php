@@ -32,6 +32,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/product/{id}/edit', [ProductController::class, 'edit'])->name('products.edit');
     Route::put('/product/{id}', [ProductController::class, 'update'])->name('products.update');
     Route::post('/products/{id}/request', [ProductController::class, 'updateRequest'])->name('products.request');
+    Route::post('/products/{id}/requestCancel', [ProductController::class, 'updateRequestCancel'])->name('products.requestCancel');
     Route::post('/product/restore/{id}', [App\Http\Controllers\ProductController::class, 'restore'])->name('product.restore');
 
     Route::get('/create_post', [PostController::class, 'create'])->name('posts.create');
