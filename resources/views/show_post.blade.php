@@ -32,7 +32,7 @@
                     <p>{{ $post->content }}</p>
                 </div>
                 <div class="flex p-6" style="float: right">
-                    <button type="submit" class="mt-2 mr-2 bg-blue-500 hover:bg-blue-700 text-black font-bold py-2 px-4 rounded">
+                    <button type="submit" class="mt-2 mr-2 bg-red-500 hover:bg-blue-700 text-black font-bold py-2 px-4 rounded">
                         <a href="{{ route('post.edit', ['id' => $post->id]) }}" class="text-white">수정</a>
                     </button>
                     <form action="{{ route('post.destroy', ['id' => $post->id]) }}" method="POST" onsubmit="return confirm('게시글을 삭제하시겠습니까?')">
@@ -48,7 +48,7 @@
                     @csrf
                     <input type="hidden" name="post_id" value="{{ $post->id }}">
                     <textarea name="content" class="flex-grow p-3 border rounded shadow appearance-none text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="댓글을 입력하세요." rows="4"></textarea>
-                    <button type="submit" class="mt-8 py-2 px-4 bg-blue-500 hover:bg-blue-700 text-white font-bold rounded focus:outline-none focus:shadow-outline">댓글 작성</button>
+                    <button type="submit" class="mt-8 py-2 px-4 bg-red-500 hover:bg-blue-700 text-white font-bold rounded focus:outline-none focus:shadow-outline">댓글 작성</button>
                 </form>
             </div>
             <!-- 댓글 목록 -->

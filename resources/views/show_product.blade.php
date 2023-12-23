@@ -41,7 +41,7 @@
                         <div class="flex justify-end">
                             <form action="{{ route('products.request', ['id' => $product->id]) }}" method="POST">
                                 @csrf
-                                <button type="submit" class="mt-2 mr-2 bg-blue-500 hover:bg-blue-700 text-black font-bold py-3 px-6 rounded">구매 신청</button>
+                                <button type="submit" class="mt-2 mr-2 bg-red-500 hover:bg-blue-700 text-black font-bold py-3 px-6 rounded">구매 신청</button>
                             </form>
                         </div>
                         @endif

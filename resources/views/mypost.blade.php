@@ -70,7 +70,7 @@
                         </a>
                     </div>
                     @if ($product->request)
-                    <button type="button" class="mr-10 ml-auto bg-green-500 hover:bg-green-700 text-black py-2 px-4 rounded font-bold text-lg" onclick="confirmRestoreOrDestroy(event, 'restoreForm', 'destroyForm')">
+                    <button type="button" class="mr-10 ml-auto bg-red-500 hover:bg-green-700 text-black py-2 px-4 rounded font-bold text-lg" onclick="confirmRestoreOrDestroy(event, 'restoreForm', 'destroyForm')">
                         판매 수락
                     </button>
                     <form id="restoreForm" action="{{ route('product.restore', ['id' => $product->id]) }}" method="POST" style="display: none;">
