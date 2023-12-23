@@ -5,6 +5,18 @@
         </h2>
     </x-slot>
 
+    @if (session('success'))
+    <script>
+        alert('{{ session('success') }}');
+    </script>
+    @endif
+
+    @if (session('error'))
+    <script>
+        alert('{{ session('error') }}');
+    </script>
+    @endif
+
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
@@ -34,7 +46,7 @@
             <div class="mt-5 bg-white overflow-hidden shadow-sm sm:rounded-lg p-5">
                 <form action="{{ route('comments.store') }}" method="post" class="flex items-start space-x-4">
                     @csrf
-                    <input type="hidden" name="post_id" value="{{ $post->id }}">  
+                    <input type="hidden" name="post_id" value="{{ $post->id }}">
                     <textarea name="content" class="flex-grow p-3 border rounded shadow appearance-none text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="댓글을 입력하세요." rows="4"></textarea>
                     <button type="submit" class="mt-8 py-2 px-4 bg-blue-500 hover:bg-blue-700 text-white font-bold rounded focus:outline-none focus:shadow-outline">댓글 작성</button>
                 </form>

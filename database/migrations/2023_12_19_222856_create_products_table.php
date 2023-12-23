@@ -18,6 +18,7 @@ return new class extends Migration
             $table->decimal('price', 8, 2);
             $table->text('content');
             $table->string('image');
+            $table->string('request');
             $table->timestamps();
         });
     }

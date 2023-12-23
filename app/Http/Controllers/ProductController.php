@@ -30,7 +30,6 @@ class ProductController extends Controller
         ]);
 
         $imageName = time().'.'.$request->image->extension();
-
         $request->image->move(public_path('images/'), $imageName);
 
         $product = new Product;
@@ -39,12 +38,36 @@ class ProductController extends Controller
         $product->price = $request->price;
         $product->content = $request->content;
         $product->image = $imageName;
+        $product->request = '';
         $product->save();
 
         return redirect('/dashboard')
             ->with('success','상품이 등록되었습니다.')
             ->with('image',$imageName);
     }
+
+    public function restore($id)
+    {
+        $oldProduct = Product::find($id);
+        if($oldProduct !== null && $oldProduct->user_id == Auth::id()) {
+            $newProduct = new Product;
+            $newProduct->user_id = Auth::id();
+            $newProduct->title = $oldProduct->title;
+            $newProduct->price = $oldProduct->price;
+            $newProduct->content = $oldProduct->content;
+            $newProduct->image = $oldProduct->image;
+            $newProduct->request = '';
+
+            $newProduct->save();
+            // 기존 상품 삭제
+            $oldProduct->delete();
+
+            return redirect('/mypost')->with('success', '상품이 재등록되었습니다.');
+        } else {
+            return redirect('/mypost')->with('error', '해당 상품을 찾거나 재등록할 권한이 없습니다.');
+        }
+    }
+
 
     public function show($id)
     {
@@ -98,6 +121,19 @@ class ProductController extends Controller
         }
     }
 
+    public function updateRequest($id)
+    {
+        $product = Product::find($id);
+        if($product) {
+            $product->request = Auth::id();
+            $product->save();
+
+            return redirect()->back()->with('success', '구매 신청이 완료되었습니다.');
+        } else {
+            return redirect()->back()->with('error', '상품을 찾을 수 없습니다.');
+        }
+    }
+
     public function destroy($id)
     {
         $product = Product::find($id);
@@ -105,7 +141,7 @@ class ProductController extends Controller
             if(file_exists(public_path('images/'.$product->image))) {
                 unlink(public_path('images/'.$product->image));
             }
-            
+
             $product->delete();
             return redirect('/dashboard')->with('success', '상품이 삭제되었습니다.');
         } else {
